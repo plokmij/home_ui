@@ -37,40 +37,56 @@ class Home extends StatelessWidget {
     );
   }
 
-  Widget buildItemBox() {
-    return Stack(
-      children: <Widget>[
-        Container(
-          width: 150.0,
-          height: 120.0,
-          decoration: BoxDecoration(
-            shape: BoxShape.rectangle,
-            borderRadius: BorderRadius.all(
-              Radius.circular(12.0),
-            ),
-            color: Colors.teal,
-          ),
-          child: Image.network("https://www.makmax.com/dcms_media/image/news_wanda_2.jpg",
-          fit: BoxFit.cover,),
-        ),
-        Container(
-          margin: EdgeInsets.only(top:90.0),
-          width: 150.0,
-          height: 30.0,
-          decoration: BoxDecoration(
-              color: Color(0xff214489),
+  Widget buildItemBox(String imgSrc) {
+    return Container(
+      margin: EdgeInsets.only(
+        right: 10.0,
+      ),
+      child: Stack(
+        children: <Widget>[
+          Container(
+            width: 180.0,
+            height: 150.0,
+            decoration: BoxDecoration(
               shape: BoxShape.rectangle,
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(12.0),
-                bottomRight: Radius.circular(12.0),
-              )),
-        ),
-      ],
+              borderRadius: BorderRadius.all(
+                Radius.circular(12.0),
+              ),
+              color: Colors.teal,
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.all(
+                Radius.circular(12.0),
+              ),
+              child: Image.network(
+                imgSrc,
+                fit: BoxFit.cover,
+                colorBlendMode: BlendMode.darken,
+              ),
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.only(
+              top: 120.0,
+            ),
+            width: 180.0,
+            height: 30.0,
+            decoration: BoxDecoration(
+                color: Color(0xff214489),
+                shape: BoxShape.rectangle,
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(12.0),
+                  bottomRight: Radius.circular(12.0),
+                )),
+          ),
+        ],
+      ),
     );
   }
 
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height / 7;
+
     var circlesList = List<Widget>();
     circlesList.add(
       SizedBox(
@@ -105,6 +121,26 @@ class Home extends StatelessWidget {
         ),
       );
     }
+
+    var itemList = List();
+
+    itemList.add(
+      SizedBox(
+        width: 10.0,
+      ),
+    );
+
+    final images = [
+      "https://d1bvpoagx8hqbg.cloudfront.net/originals/27-best-football-stadiums-europe-b11d4697ae6b3413d719870dba44e1c8.jpg",
+      "https://d1bvpoagx8hqbg.cloudfront.net/originals/27-best-football-stadiums-europe-27a61812bfbb0643b6cc72b31309d455.jpg",
+      "https://www.grassrootscoaching.com/wp-content/uploads/2015/09/Old-Trafford.jpg",
+      "https://www.stadiumguide.com/wp-content/gallery/anfield/anfield5.jpg",
+    ];
+
+    for (int i = 0; i < images.length; i++) {
+      itemList.add(buildItemBox(images[i]));
+    }
+
     return StreamBuilder(
       stream: bloc.currentIndex,
       builder: (context, snapshot) {
@@ -181,15 +217,28 @@ class Home extends StatelessWidget {
                     itemCount: circlesList.length,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
-                      return Center(child: circlesList[index]);
+                      return Center(
+                        child: circlesList[index],
+                      );
                     },
                   ),
                 ),
                 Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height / 4,
+//                  width: MediaQuery.of(context).size.width,
+                  height: 180,
                   color: Colors.white,
-                  child: buildItemBox(),
+                  child: ListView.builder(
+                    padding: EdgeInsets.only(
+                      right: 5.0,
+                    ),
+                    itemCount: itemList.length,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      return Center(
+                        child: itemList[index],
+                      );
+                    },
+                  ),
                 ),
               ],
             ),
