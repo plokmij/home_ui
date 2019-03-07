@@ -72,12 +72,22 @@ class Home extends StatelessWidget {
             width: 180.0,
             height: 30.0,
             decoration: BoxDecoration(
-                color: Color(0xff214489),
-                shape: BoxShape.rectangle,
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(12.0),
-                  bottomRight: Radius.circular(12.0),
-                )),
+              color: Color(0xff214489),
+              shape: BoxShape.rectangle,
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(12.0),
+                bottomRight: Radius.circular(12.0),
+              ),
+            ),
+            child: Center(
+              child: Text(
+                "Location",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
           ),
         ],
       ),
@@ -194,7 +204,7 @@ class Home extends StatelessWidget {
                   flexibleSpace: FlexibleSpaceBar(
                     centerTitle: true,
                     background: Image.network(
-                      "http://onehdwallpaper.com/wp-content/uploads/2015/07/Beautiful-Scenery-HD-Wallpapers-Pictures-7.jpg",
+                      "https://www.makmax.com/dcms_media/image/news_wanda_2.jpg",
                       fit: BoxFit.cover,
                       colorBlendMode: BlendMode.darken,
                       filterQuality: FilterQuality.low,
