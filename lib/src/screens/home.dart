@@ -3,7 +3,35 @@ import '../blocs/navigation_provider.dart';
 
 class Home extends StatelessWidget {
   final bloc = NavigationBloc();
+
+  Widget buildCircle(BuildContext context, double height, Widget child) {
+    return Container(
+      margin: EdgeInsets.only(right: 10.0),
+      height: height * 0.8,
+      width: height * 0.8,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: Colors.white,
+      ),
+      child: Center(
+        child: child,
+      ),
+    );
+  }
+
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height / 7;
+    var circlesList = List<Widget>();
+    circlesList.add(SizedBox(width: 10.0,));
+    for (int i = 0; i < 5; i++) {
+      circlesList.add(buildCircle(
+          context,
+          height,
+          Icon(
+            Icons.security,
+            color: Colors.black,
+          )));
+    }
     return StreamBuilder(
       stream: bloc.currentIndex,
       builder: (context, snapshot) {
@@ -59,17 +87,33 @@ class Home extends StatelessWidget {
                     centerTitle: true,
                     background: Image.network(
                       "http://onehdwallpaper.com/wp-content/uploads/2015/07/Beautiful-Scenery-HD-Wallpapers-Pictures-7.jpg",
-                      fit:BoxFit.cover,
+                      fit: BoxFit.cover,
                       filterQuality: FilterQuality.low,
                     ),
                   ),
                 ),
               ];
             },
-            body: Container(
-              child: Center(
-                child: Text("You are Home!"),
-              ),
+            body: Column(
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.only(bottom: 5.0),
+                  height: MediaQuery.of(context).size.height / 6,
+                  color: Color(0xff214489),
+                  child: ListView.builder(
+                    padding: EdgeInsets.all(0),
+                    itemCount: circlesList.length,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index){
+                      return circlesList[index];
+                    },
+                  ),
+                ),
+                Container(
+                  height: MediaQuery.of(context).size.height / 4,
+                  color: Colors.white,
+                )
+              ],
             ),
           ),
         );
