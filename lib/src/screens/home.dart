@@ -37,6 +37,38 @@ class Home extends StatelessWidget {
     );
   }
 
+  Widget buildItemBox() {
+    return Stack(
+      children: <Widget>[
+        Container(
+          width: 150.0,
+          height: 120.0,
+          decoration: BoxDecoration(
+            shape: BoxShape.rectangle,
+            borderRadius: BorderRadius.all(
+              Radius.circular(12.0),
+            ),
+            color: Colors.teal,
+          ),
+          child: Image.network("https://www.makmax.com/dcms_media/image/news_wanda_2.jpg",
+          fit: BoxFit.cover,),
+        ),
+        Container(
+          margin: EdgeInsets.only(top:90.0),
+          width: 150.0,
+          height: 30.0,
+          decoration: BoxDecoration(
+              color: Color(0xff214489),
+              shape: BoxShape.rectangle,
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(12.0),
+                bottomRight: Radius.circular(12.0),
+              )),
+        ),
+      ],
+    );
+  }
+
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height / 7;
     var circlesList = List<Widget>();
@@ -47,17 +79,17 @@ class Home extends StatelessWidget {
     );
 
     circlesList.add(
-        buildCircle(
-          context,
-          height,
-          Icon(
-            Icons.my_location,
-            size: 48,
-            color: Colors.black,
-          ),
-          "Nearby",
+      buildCircle(
+        context,
+        height,
+        Icon(
+          Icons.my_location,
+          size: 48,
+          color: Colors.black,
         ),
-      );
+        "Nearby",
+      ),
+    );
 
     for (int i = 0; i < 10; i++) {
       circlesList.add(
@@ -114,7 +146,10 @@ class Home extends StatelessWidget {
                   title: Text(
                     "TITLE",
                     style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.w900),
+                      color: Colors.white,
+                      fontWeight: FontWeight.w900,
+                      fontSize: 20,
+                    ),
                   ),
                   expandedHeight:
                       (MediaQuery.of(context).size.height / 2) * (3 / 4),
@@ -151,9 +186,11 @@ class Home extends StatelessWidget {
                   ),
                 ),
                 Container(
+                  width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height / 4,
                   color: Colors.white,
-                )
+                  child: buildItemBox(),
+                ),
               ],
             ),
           ),
