@@ -94,6 +94,30 @@ class Home extends StatelessWidget {
     );
   }
 
+  Widget buildOfferCard(double width, Color color) {
+    return Container(
+      width: width,
+      height: width * 0.67,
+      margin: EdgeInsets.only(right: 10),
+      decoration: BoxDecoration(
+        shape: BoxShape.rectangle,
+        borderRadius: BorderRadius.all(
+          Radius.circular(12.0),
+        ),
+        color: color
+      ),
+      child: Center(
+        child: Text("Offer Detail",
+        style: TextStyle(
+          fontWeight: FontWeight.w700,
+          color: Colors.white,
+          fontSize: 30.0
+        ),
+        ),
+      ),
+    );
+  }
+
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height / 7;
 
@@ -103,7 +127,6 @@ class Home extends StatelessWidget {
         width: 10.0,
       ),
     );
-
     circlesList.add(
       buildCircle(
         context,
@@ -116,7 +139,6 @@ class Home extends StatelessWidget {
         "Nearby",
       ),
     );
-
     for (int i = 0; i < 10; i++) {
       circlesList.add(
         buildCircle(
@@ -133,22 +155,36 @@ class Home extends StatelessWidget {
     }
 
     var itemList = List();
-
     itemList.add(
       SizedBox(
         width: 10.0,
       ),
     );
-
     final images = [
       "https://d1bvpoagx8hqbg.cloudfront.net/originals/27-best-football-stadiums-europe-b11d4697ae6b3413d719870dba44e1c8.jpg",
       "https://d1bvpoagx8hqbg.cloudfront.net/originals/27-best-football-stadiums-europe-27a61812bfbb0643b6cc72b31309d455.jpg",
       "https://www.grassrootscoaching.com/wp-content/uploads/2015/09/Old-Trafford.jpg",
       "https://www.stadiumguide.com/wp-content/gallery/anfield/anfield5.jpg",
     ];
-
     for (int i = 0; i < images.length; i++) {
       itemList.add(buildItemBox(images[i]));
+    }
+
+    var offerList = List();
+    offerList.add(
+      SizedBox(
+        width: 10.0,
+      ),
+    );
+
+    final colors = [
+      Colors.red,
+      Color(0xffff4c5d),
+    ];
+    final width = MediaQuery.of(context).size.width;
+    
+    for(int i = 0 ; i< colors.length; i++){
+      offerList.add(buildOfferCard(0.8*width, colors[i]));
     }
 
     return StreamBuilder(
@@ -213,7 +249,8 @@ class Home extends StatelessWidget {
                 ),
               ];
             },
-            body: Column(
+            body: SingleChildScrollView(
+              child: Column(
               children: <Widget>[
                 SizedBox(
                   height: 0.3,
@@ -236,6 +273,7 @@ class Home extends StatelessWidget {
                 Container(
 //                  width: MediaQuery.of(context).size.width,
                   height: 180,
+                  margin: EdgeInsets.only(bottom: 5.0),
                   color: Colors.white,
                   child: ListView.builder(
                     padding: EdgeInsets.only(
@@ -250,7 +288,25 @@ class Home extends StatelessWidget {
                     },
                   ),
                 ),
+                Container(
+//                  width: MediaQuery.of(context).size.width,
+                  height: 210,
+                  color: Colors.white,
+                  child: ListView.builder(
+                    padding: EdgeInsets.only(
+                      right: 5.0,
+                    ),
+                    itemCount: offerList.length,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      return Center(
+                        child: offerList[index],
+                      );
+                    },
+                  ),
+                )
               ],
+            ),
             ),
           ),
         );
